@@ -1,24 +1,21 @@
 package net.geodrop;
 
-import com.dropbox.client2.DropboxAPI;
-import com.dropbox.client2.android.AndroidAuthSession;
-import com.dropbox.client2.session.AppKeyPair;
-import com.dropbox.client2.session.Session.AccessType;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.opengl.GLES20;
 import android.opengl.Matrix;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.Display;
-import android.view.View;
-import android.view.Window;
-import android.view.WindowManager;
+
 import com.google.vrtoolkit.cardboard.*;
 
 import javax.microedition.khronos.egl.EGLConfig;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+
+import com.dropbox.sync.android.DbxAccountManager;
 
 public class GeoDropActivity 
     extends CardboardActivity 
@@ -28,14 +25,16 @@ public class GeoDropActivity
   /**
    *  App key & secret
    */
-  final static private String APP_KEY = "pm7uj5ni8got89w";
-  final static private String APP_SECRET = "b4ln0k265szoal4";
-  final static private AccessType ACCESS_TYPE = AccessType.DROPBOX;
+  final static private String APP_KEY = "4czk970ankekthg";
+  final static private String APP_SECRET = "68ekm600tjoruau";
+
+  static final int REQUEST_LINK_TO_DBX = 0;
 
   /**
    * API object
    */
-  private DropboxAPI<AndroidAuthSession> mDBApi;
+  //private DropboxAPI<AndroidAuthSession> mDBApi;
+  private DbxAccountManager mDbxAcctMgr;
 
   /**
    * 3D cardboardView.
@@ -80,12 +79,17 @@ public class GeoDropActivity
     super.onCreate(savedInstanceState);
 
     // Initialise API stuff
-    AppKeyPair appKeys = new AppKeyPair(APP_KEY, APP_SECRET);
-    AndroidAuthSession session = new AndroidAuthSession(appKeys, ACCESS_TYPE);
-    mDBApi = new DropboxAPI<AndroidAuthSession>(session);
+    //AppKeyPair appKeys = new AppKeyPair(APP_KEY, APP_SECRET);
+    //AndroidAuthSession session = new AndroidAuthSession(appKeys, ACCESS_TYPE);
+    //mDBApi = new DropboxAPI<AndroidAuthSession>(session);
 
     // Authenticate
-    mDBApi.getSession().startOAuth2Authentication(GeoDropActivity.this);
+    //mDBApi.getSession().startOAuth2Authentication(GeoDropActivity.this);
+
+    mDbxAcctMgr = DbxAccountManager.getInstance(getApplicationContext(), APP_KEY, APP_SECRET);
+
+    // Link with dropbox
+    mDbxAcctMgr.startLink((Activity)this, REQUEST_LINK_TO_DBX);
 
     // Create the cardboard cardboardView.
     cardboardView = new CardboardView(this);
@@ -95,16 +99,15 @@ public class GeoDropActivity
   }
 
   @Override
-  protected void onResume() {
-    super.onResume();
-
-    if (mDBApi.getSession().authenticationSuccessful()) {
-      try {
-        mDBApi.getSession().finishAuthentication();
-        String accessToken = mDBApi.getSession().getOAuth2AccessToken();
-      } catch (IllegalStateException e) {
-        Log.i("DbAuthLog", "Error authenticating", e);
+  public void onActivityResult(int requestCode, int resultCode, Intent data) {
+    if (requestCode == REQUEST_LINK_TO_DBX) {
+      if (resultCode == Activity.RESULT_OK) {
+        // get files.
+      } else {
+        // fail
       }
+    } else {
+      super.onActivityResult(requestCode, resultCode, data);
     }
   }
 
