@@ -5,6 +5,7 @@ import android.graphics.BitmapFactory;
 import android.opengl.Matrix;
 import android.util.Log;
 import com.dropbox.sync.android.*;
+import com.google.vrtoolkit.cardboard.Eye;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -85,6 +86,8 @@ public class Folder implements Entity {
         Log.i("FS", info.path.toString());
         if (info.isFolder) {
           children.add(new Folder(dbxFs, this, info.path));
+        } else if (info.path.getName().endsWith("_model.txt")) {
+            children.add(new Model(dbxFs, info.path));
         } else {
           DbxFile file = dbxFs.open(info.path);
           children.add(new Image(BitmapFactory.decodeStream(file.getReadStream())));
@@ -97,7 +100,7 @@ public class Folder implements Entity {
   }
 
   @Override
-  public void render(Shader shader) {
+  public void render(Shader shader, Shader unused, Eye eye, float[] model) {
     int i = 0;
     for (Entity child : children) {
       float ang = (float)(i * Math.PI * 2.0 / children.size());
@@ -115,29 +118,30 @@ public class Folder implements Entity {
       if (i == selected) {
         Matrix.scaleM(mModel, 0, 1.1f, 1.1f, 1.1f);
       }
-      
-      shader.uniform("u_model", mModel);
+
       if (child instanceof Folder) {
-        PictureVR.folderImage.render(shader);
+        PictureVR.folderImage.render(shader, unused, eye, mModel);
       } else {
-        child.render(shader);
+        child.render(shader, unused, eye, mModel);
       }
       ++i;
     }
   }
 
   public Folder select() {
-    if (children.get(selected) instanceof Image) {
-      zoomed = !zoomed;
-      return null;
-    } else {
+    if (children.get(selected) instanceof Folder) {
       zoomed = false;
       return (Folder)children.get(selected);
+    } else {
+      zoomed = !zoomed;
+      return null;
     }
   }
 
   public void point(float x, float z) {
     float ang = (float)Math.atan2(x, -z) + (float)Math.PI;
-    selected = (int)(ang * children.size() / (2 * Math.PI)); 
+    if (!zoomed) {
+      selected = (int) (ang * children.size() / (2 * Math.PI));
+    }
   }
 }

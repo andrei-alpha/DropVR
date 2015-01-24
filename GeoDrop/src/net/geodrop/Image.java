@@ -4,6 +4,7 @@ import android.graphics.Bitmap;
 import android.opengl.GLES20;
 import android.opengl.GLUtils;
 import android.util.Log;
+import com.google.vrtoolkit.cardboard.Eye;
 
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
@@ -55,7 +56,12 @@ public class Image implements Entity {
   }
 
   @Override
-  public void render(Shader shader) {
+  public void render(Shader shader, Shader unused, Eye eye, float[] model) {
+    shader.use();
+    shader.uniform("u_view", eye.getEyeView());
+    shader.uniform("u_proj", eye.getPerspective(0.1f, 100.0f));
+    shader.uniform("u_model", model);
+    
     int vertex = shader.attrib("in_vertex");
     int uv = shader.attrib("in_uv");
     
