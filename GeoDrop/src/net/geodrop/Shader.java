@@ -173,14 +173,25 @@ public class Shader {
    * Sets the value of a uniform matrix. 
    */
   public void uniform(String name, float[] value) {
-    GLES20.glUniformMatrix4fv( uniforms.get(name), 1, false, value, 0);
+    if (uniforms.containsKey(name)) {
+      GLES20.glUniformMatrix4fv(uniforms.get(name), 1, false, value, 0);
+    }
   }
+  
+  /**
+   * Sets the value of a uniform matrix. 
+   */
+  public void uniform(String name, int value) {
+    if (uniforms.containsKey(name)) {
+      GLES20.glUniform1i(uniforms.get(name), value);
+    }
+  }
+
 
   /**
    * Retrieves an attribute location. 
    */
   public int attrib(String name) {
     return attributes.get(name);
-    
   }
 }
