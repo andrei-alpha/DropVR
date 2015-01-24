@@ -25,8 +25,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="7baed785-d87d-4a29-8820-f6ea7fe54449" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/GeoDrop/AndroidManifest.xml" afterPath="$PROJECT_DIR$/GeoDrop/AndroidManifest.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/DropboxHack.iws" afterPath="$PROJECT_DIR$/DropboxHack.iws" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/GeoDrop/src/net/geodrop/Folder.java" afterPath="$PROJECT_DIR$/GeoDrop/src/net/geodrop/Folder.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/GeoDrop/src/net/geodrop/PictureVR.java" afterPath="$PROJECT_DIR$/GeoDrop/src/net/geodrop/PictureVR.java" />
     </list>
     <ignored path="DropboxHack.iws" />
@@ -50,21 +50,34 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="PictureVR.java" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="PictureVR.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/GeoDrop/src/net/geodrop/PictureVR.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.41512915" vertical-offset="0" max-vertical-offset="3285">
-              <caret line="33" column="61" selection-start-line="33" selection-start-column="61" selection-end-line="33" selection-end-column="61" />
+            <state vertical-scroll-proportion="0.0" vertical-offset="2400" max-vertical-offset="3540">
+              <caret line="4" column="28" selection-start-line="4" selection-start-column="28" selection-end-line="4" selection-end-column="28" />
+              <folding>
+                <element signature="e#5204#5205#0" expanded="true" />
+                <element signature="e#5235#5236#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Folder.java" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/GeoDrop/src/net/geodrop/Folder.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.80258304" vertical-offset="585" max-vertical-offset="2115">
+              <caret line="76" column="5" selection-start-line="76" selection-start-column="5" selection-end-line="76" selection-end-column="5" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Folder.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/GeoDrop/src/net/geodrop/Folder.java">
+      <file leaf-file-name="Image.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/GeoDrop/src/net/geodrop/Image.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="975" max-vertical-offset="1665">
-              <caret line="82" column="30" selection-start-line="82" selection-start-column="30" selection-end-line="82" selection-end-column="30" />
+            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1215">
+              <caret line="46" column="0" selection-start-line="46" selection-start-column="0" selection-end-line="46" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -73,7 +86,7 @@
       <file leaf-file-name="AndroidManifest.xml" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/GeoDrop/AndroidManifest.xml">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="272" max-vertical-offset="825">
+            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="825">
               <caret line="36" column="56" selection-start-line="36" selection-start-column="56" selection-end-line="36" selection-end-column="56" />
               <folding />
             </state>
@@ -105,9 +118,9 @@
         <option value="$PROJECT_DIR$/GeoDrop/src/net/geodrop/Quad.java" />
         <option value="$PROJECT_DIR$/GeoDrop/src/net/geodrop/Entity.java" />
         <option value="$PROJECT_DIR$/GeoDrop/src/net/geodrop/Image.java" />
-        <option value="$PROJECT_DIR$/GeoDrop/src/net/geodrop/Folder.java" />
         <option value="$PROJECT_DIR$/GeoDrop/AndroidManifest.xml" />
         <option value="$PROJECT_DIR$/GeoDrop/src/net/geodrop/PictureVR.java" />
+        <option value="$PROJECT_DIR$/GeoDrop/src/net/geodrop/Folder.java" />
       </list>
     </option>
   </component>
@@ -485,9 +498,29 @@
   <component name="TimeTrackingManager">
     <option name="totallyTimeSpent" value="28221000" />
   </component>
+  <component name="TodoView" selected-index="0">
+    <todo-panel id="selected-file">
+      <are-packages-shown value="false" />
+      <are-modules-shown value="false" />
+      <flatten-packages value="false" />
+      <is-autoscroll-to-source value="true" />
+    </todo-panel>
+    <todo-panel id="all">
+      <are-packages-shown value="true" />
+      <are-modules-shown value="false" />
+      <flatten-packages value="false" />
+      <is-autoscroll-to-source value="true" />
+    </todo-panel>
+    <todo-panel id="default-changelist">
+      <are-packages-shown value="false" />
+      <are-modules-shown value="false" />
+      <flatten-packages value="false" />
+      <is-autoscroll-to-source value="false" />
+    </todo-panel>
+  </component>
   <component name="ToolWindowManager">
     <frame x="0" y="22" width="1680" height="962" extended-state="0" />
-    <editor active="false" />
+    <editor active="true" />
     <layout>
       <window_info id="Palette&#9;" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32859176" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
@@ -495,20 +528,20 @@
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3997155" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32716927" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.32624114" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Gradle Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="8" side_tool="true" content_ui="tabs" />
       <window_info id="Build Variants" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32716927" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32624114" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Android" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.36406618" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32978722" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.23931624" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
-      <window_info id="Run" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.32624114" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.32624114" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Memory Monitor" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="8" side_tool="true" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
@@ -601,7 +634,10 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="1781" max-vertical-offset="3210">
           <caret line="153" column="39" selection-start-line="153" selection-start-column="39" selection-end-line="153" selection-end-column="39" />
-          <folding />
+          <folding>
+            <element signature="e#5204#5205#0" expanded="true" />
+            <element signature="e#5235#5236#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -648,7 +684,10 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="990" max-vertical-offset="2475">
           <caret line="66" column="44" selection-start-line="66" selection-start-column="44" selection-end-line="66" selection-end-column="44" />
-          <folding />
+          <folding>
+            <element signature="e#5204#5205#0" expanded="true" />
+            <element signature="e#5235#5236#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -725,7 +764,10 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1755">
           <caret line="108" column="26" selection-start-line="108" selection-start-column="26" selection-end-line="108" selection-end-column="26" />
-          <folding />
+          <folding>
+            <element signature="e#5204#5205#0" expanded="true" />
+            <element signature="e#5235#5236#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -755,7 +797,10 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1650">
           <caret line="50" column="25" selection-start-line="50" selection-start-column="25" selection-end-line="50" selection-end-column="25" />
-          <folding />
+          <folding>
+            <element signature="e#5204#5205#0" expanded="true" />
+            <element signature="e#5235#5236#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -785,7 +830,10 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="420" max-vertical-offset="855">
           <caret line="28" column="0" selection-start-line="28" selection-start-column="0" selection-end-line="28" selection-end-column="0" />
-          <folding />
+          <folding>
+            <element signature="e#5204#5205#0" expanded="true" />
+            <element signature="e#5235#5236#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -807,7 +855,10 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="315">
           <caret line="5" column="13" selection-start-line="5" selection-start-column="13" selection-end-line="5" selection-end-column="13" />
-          <folding />
+          <folding>
+            <element signature="e#5204#5205#0" expanded="true" />
+            <element signature="e#5235#5236#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -899,14 +950,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/GeoDrop/src/net/geodrop/Image.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.8235294" vertical-offset="600" max-vertical-offset="1215">
-          <caret line="75" column="3" selection-start-line="75" selection-start-column="3" selection-end-line="82" selection-end-column="3" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/GeoDrop/build.xml">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1470">
@@ -915,26 +958,37 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/GeoDrop/src/net/geodrop/Folder.java">
+    <entry file="file://$PROJECT_DIR$/GeoDrop/AndroidManifest.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="975" max-vertical-offset="1665">
-          <caret line="82" column="30" selection-start-line="82" selection-start-column="30" selection-end-line="82" selection-end-column="30" />
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="825">
+          <caret line="36" column="56" selection-start-line="36" selection-start-column="56" selection-end-line="36" selection-end-column="56" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/GeoDrop/AndroidManifest.xml">
+    <entry file="file://$PROJECT_DIR$/GeoDrop/src/net/geodrop/Image.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="272" max-vertical-offset="825">
-          <caret line="36" column="56" selection-start-line="36" selection-start-column="56" selection-end-line="36" selection-end-column="56" />
+        <state vertical-scroll-proportion="0.0" vertical-offset="415" max-vertical-offset="1215">
+          <caret line="46" column="0" selection-start-line="46" selection-start-column="0" selection-end-line="46" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/GeoDrop/src/net/geodrop/PictureVR.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.41512915" vertical-offset="0" max-vertical-offset="3285">
-          <caret line="33" column="61" selection-start-line="33" selection-start-column="61" selection-end-line="33" selection-end-column="61" />
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="3540">
+          <caret line="4" column="28" selection-start-line="4" selection-start-column="28" selection-end-line="4" selection-end-column="28" />
+          <folding>
+            <element signature="e#5204#5205#0" expanded="true" />
+            <element signature="e#5235#5236#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/GeoDrop/src/net/geodrop/Folder.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.80258304" vertical-offset="585" max-vertical-offset="2115">
+          <caret line="76" column="5" selection-start-line="76" selection-start-column="5" selection-end-line="76" selection-end-column="5" />
           <folding />
         </state>
       </provider>

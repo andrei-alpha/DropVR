@@ -5,10 +5,8 @@ import android.os.Vibrator;
 import android.app.Activity;
 import android.content.Intent;
 import android.opengl.GLES20;
-import android.opengl.Matrix;
 import android.os.Bundle;
 import android.util.Log;
-import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 
 import com.dropbox.sync.android.*;
@@ -17,8 +15,6 @@ import com.google.vrtoolkit.cardboard.*;
 
 import javax.microedition.khronos.egl.EGLConfig;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 
 
 public class PictureVR extends CardboardActivity implements CardboardView.StereoRenderer 
@@ -162,16 +158,16 @@ public class PictureVR extends CardboardActivity implements CardboardView.Stereo
    */
   @Override
   public void onNewFrame(HeadTransform headTransform) {
-    try {
+    //try {
       if (root == null) {
         Log.i("FS", "Creating home folder.");
         root = new Folder(dbxFs, null, DbxPath.ROOT);
         Log.i("FS", "Created home folder.");
       }
-    } catch (IOException e) {
-      e.printStackTrace();
-      finish();
-    }
+    //} catch (IOException e) {
+    //  e.printStackTrace();
+    //  finish();
+    //}
     
     if (folderImage == null) {
       folderImage = new Image(BitmapFactory.decodeResource(getResources(), R.drawable.folder));
@@ -231,3 +227,4 @@ public class PictureVR extends CardboardActivity implements CardboardView.Stereo
     image2DShader.close();
   }
 }
+

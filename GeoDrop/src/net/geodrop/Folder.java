@@ -45,27 +45,57 @@ public class Folder implements Entity {
    */
   boolean zoomed;
 
-  public Folder(DbxFileSystem dbxFs, Folder parent, DbxPath dbxPath)
-      throws DbxException, IOException 
-  {
-    List<DbxFileInfo> infos = dbxFs.listFolder(dbxPath);
+  /**
+   * Dropbox file system
+   */
+  private final DbxFileSystem dbxFs;
 
-    for (DbxFileInfo info : infos) {
-      Log.i("FS", info.path.toString());
-      if (info.isFolder) {
-        children.add(new Folder(dbxFs, this, info.path));
-      } else {
-        DbxFile file = dbxFs.open(info.path);
-        children.add(new Image(BitmapFactory.decodeStream(file.getReadStream())));
-        file.close();
-      }
-    }
-    
+  /**
+   * Folder path in the dropbox file system
+   */
+  private final DbxPath dbxPath;
+
+
+  public Folder(DbxFileSystem dbxFs, Folder parent, DbxPath dbxPath) {
+
+    this.dbxFs = dbxFs;
+    this.dbxPath = dbxPath;
+
+    // Sync folder content
+    syncFolderContent();
+
+    // Add the listener
+    //dbxFs.addPathListener(new DbxFileSystem.PathListener() {
+    //  @Override
+    //  public void onPathChange(DbxFileSystem dbxFileSystem, DbxPath dbxPath, Mode mode) {
+    //    syncFolderContent();
+    //  }
+    //}, DbxPath.ROOT, DbxFileSystem.PathListener.Mode.PATH_ONLY);
+
     if (parent != null) {
       children.add(parent);
     }
   }
-  
+
+  private void syncFolderContent() {
+    try {
+      List<DbxFileInfo> infos = dbxFs.listFolder(dbxPath);
+
+      for (DbxFileInfo info : infos) {
+        Log.i("FS", info.path.toString());
+        if (info.isFolder) {
+          children.add(new Folder(dbxFs, this, info.path));
+        } else {
+          DbxFile file = dbxFs.open(info.path);
+          children.add(new Image(BitmapFactory.decodeStream(file.getReadStream())));
+          file.close();
+        }
+      }
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
+  }
+
   @Override
   public void render(Shader shader) {
     int i = 0;
