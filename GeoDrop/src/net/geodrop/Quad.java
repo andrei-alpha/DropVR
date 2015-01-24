@@ -14,13 +14,13 @@ import java.nio.FloatBuffer;
  */
 public class Quad implements Entity {
   private static final float[] QUAD = new float[] {
-    -1.0f, -1.0f, 0.0f, 0.0f, 1.0f,
-    -1.0f,  1.0f, 0.0f, 0.0f, 0.0f,
-     1.0f, -1.0f, 0.0f, 1.0f, 1.0f,
+    -1.0f, -1.0f, 0.0f, 1.0f, 1.0f,
+    -1.0f,  1.0f, 0.0f, 1.0f, 0.0f,
+     1.0f, -1.0f, 0.0f, 0.0f, 1.0f,
 
-    -1.0f,  1.0f, 0.0f, 0.0f, 0.0f,
-     1.0f,  1.0f, 0.0f, 1.0f, 0.0f,
-     1.0f, -1.0f, 0.0f, 1.0f, 1.0f,
+    -1.0f,  1.0f, 0.0f, 1.0f, 0.0f,
+     1.0f,  1.0f, 0.0f, 0.0f, 0.0f,
+     1.0f, -1.0f, 0.0f, 0.0f, 1.0f,
   };
 
   private static final FloatBuffer QUAD_BUFFER = (FloatBuffer)ByteBuffer
@@ -45,9 +45,7 @@ public class Quad implements Entity {
     GLES20.glTexParameteri(GLES20.GL_TEXTURE_2D, GLES20.GL_TEXTURE_WRAP_S, GLES20.GL_CLAMP_TO_EDGE);
     GLES20.glTexParameteri(GLES20.GL_TEXTURE_2D, GLES20.GL_TEXTURE_WRAP_T, GLES20.GL_CLAMP_TO_EDGE);
     GLUtils.texImage2D(GLES20.GL_TEXTURE_2D, 0, bitmap, 0);
-    
-    bitmap.recycle();
-      
+
     GLES20.glGenBuffers(1, tmp, 0);
     buffer = tmp[0];
     

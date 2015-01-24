@@ -11,8 +11,8 @@ import android.util.Log;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 
-import com.dropbox.sync.android.DbxFileInfo;
-import com.dropbox.sync.android.DbxPath;
+import android.view.MotionEvent;
+import com.dropbox.sync.android.*;
 
 import com.google.vrtoolkit.cardboard.*;
 
@@ -20,9 +20,6 @@ import javax.microedition.khronos.egl.EGLConfig;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-
-import com.dropbox.sync.android.DbxAccountManager;
-import com.dropbox.sync.android.DbxFileSystem;
 
 
 public class PictureVR
@@ -36,7 +33,7 @@ public class PictureVR
   final static private String APP_KEY = "4czk970ankekthg";
   final static private String APP_SECRET = "68ekm600tjoruau";
 
-  static final int REQUEST_LINK_TO_DBX = 0;
+  static final int REQUEST_LINK_TO_DBX = 0xFF;
 
   /**
    * API object
@@ -121,9 +118,6 @@ public class PictureVR
     super.onCreate(savedInstanceState);
     mDbxAcctMgr = DbxAccountManager.getInstance(getApplicationContext(), APP_KEY, APP_SECRET);
 
-    // Link with Dropbox
-    mDbxAcctMgr.startLink((Activity)this, REQUEST_LINK_TO_DBX);
-
     // Create the cardboard cardboardView.
     cardboardView = new CardboardView(this);
     setContentView(cardboardView);
@@ -132,15 +126,22 @@ public class PictureVR
     
     // Access devices.
     vibrator = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
+    
+    // Dropbox sync.
+    if (!mDbxAcctMgr.hasLinkedAccount()) {
+      mDbxAcctMgr.startLink(this, REQUEST_LINK_TO_DBX);
+    } else {
+      syncFiles();
+    }
   }
 
   @Override
   public void onActivityResult(int requestCode, int resultCode, Intent data) {
+    Log.i("Files", "OnActivityResult: " + requestCode + " " + resultCode);
     if (requestCode == REQUEST_LINK_TO_DBX) {
       if (resultCode == Activity.RESULT_OK) {
         syncFiles();
-      } else {
-        // fail
+        Log.i("Sync", "Synced files.");
       }
     } else {
       super.onActivityResult(requestCode, resultCode, data);
@@ -149,19 +150,20 @@ public class PictureVR
 
   private void syncFiles() {
     try {
-      dbxFs = DbxFileSystem.forAccount(mDbxAcctMgr.getLinkedAccount());
       bitMaps = new ArrayList<>();
+      dbxFs = DbxFileSystem.forAccount(mDbxAcctMgr.getLinkedAccount());
 
       // Get the root directory info
       List<DbxFileInfo> infos = dbxFs.listFolder(DbxPath.ROOT);
 
       for (DbxFileInfo info : infos) {
         if (!info.isFolder) {
-          bitMaps.add(BitmapFactory.decodeStream(dbxFs.open(info.path).getReadStream()));
-        } else {
-          // folder
+          DbxFile file = dbxFs.open(info.path);
+          bitMaps.add(BitmapFactory.decodeStream(file.getReadStream()));
+          file.close();
         }
       }
+      Log.i("Files", "Loaded.");
     } catch (IOException e) {
       throw new RuntimeException("Failed to sync files");
     }
@@ -191,16 +193,10 @@ public class PictureVR
       Log.i("CardBox", "Cannot read 'image2DShader': " + e.toString());
       finish();
     }
-
-    // Initialise the list of files to view.
-    entities = new ArrayList<>();
-    for (int i = 0; i < 24; ++i) {
-      entities.add(new Quad(BitmapFactory.decodeResource(getResources(), R.drawable.cat, options)));
-    }
-    for (int i = 0; i < 24; ++i) {
-      entities.add(new Model());
-    }
   }
+  
+  private int lastCount = 0;
+  private int numRows = 1;
 
   /**
    * Called when a new frame starts. Should update the application state.
@@ -209,17 +205,33 @@ public class PictureVR
    */
   @Override
   public void onNewFrame(HeadTransform headTransform) {
+    if (bitMaps != null && entities == null) {
+      entities = new ArrayList<>();
+      for (Bitmap bitmap : bitMaps) {
+        entities.add(new Quad(bitmap));
+      }
+      if (entities.size() > 16) {
+        numRows = 2;
+      } else if (entities.size() > 32) {
+        numRows = 3;
+      } else {
+        numRows = 1;
+      }
+    }
+    
     final float[] forward = new float[3];
     headTransform.getForwardVector(forward, 0);
-    int third = entities.size() / 3;
+    int third = entities.size() / numRows;
     
     float ang = (float)Math.atan2(forward[0], -forward[2]) + (float)Math.PI;
-    int newSelected = (int)(ang * third / (2 * Math.PI)) + third;
+    int newSelected = (int)(ang * third / (2 * Math.PI)) + (numRows == 3 ? third : 0);
     
-    if (forward[1] > 0.2) {
-      newSelected -= third;
-    } else if (forward[1] < -0.2) {
-      newSelected += third;
+    if (numRows == 3) {
+      if (forward[1] > 0.2) {
+        newSelected -= third;
+      } else if (forward[1] < -0.2) {
+        newSelected += third;
+      }
     }
     
     if (!zoomed) {
@@ -240,16 +252,20 @@ public class PictureVR
     image2DShader.uniform("u_view", eye.getEyeView());
     image2DShader.uniform("u_proj", eye.getPerspective(0.1f, 100.0f));
     
+    if (entities == null) {
+      return;
+    }
+    
     int i = 0;
     for (Entity quad : entities) {
-      float ang = i * (float)Math.PI * 2.0f / (entities.size() / 3);
+      float ang = i * (float)Math.PI * 2.0f * numRows / entities.size();
       float dist = i == selected ? (zoomed ? 3.0f : 5.0f) : 7.0f;
       
       Matrix.setIdentityM(mModel, 0);
       Matrix.translateM(
           mModel, 0,
           (float) Math.sin(ang) * dist,
-          (i == selected && zoomed) ? 0.0f : ((float) (i / (entities.size() / 3)) * 3 - 3),
+          (i == selected && zoomed) ? 0.0f : ((float) (i * numRows / entities.size()) * numRows - numRows),
           (float) Math.cos(ang) * dist);
       Matrix.rotateM(
           mModel, 0, quad.getRot() + ang / (float)Math.PI * 180.0f, 0.0f, 1.0f, 0.0f);

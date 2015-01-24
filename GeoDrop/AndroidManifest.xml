@@ -28,14 +28,15 @@
                 <category android:name="com.google.intent.category.CARDBOARD" />
             </intent-filter>
         </activity>
+        
         <activity android:name="com.dropbox.sync.android.DbxAuthActivity" />
         <activity
-            android:name="com.dropbox.client2.android.AuthActivity"
-            android:configChanges="orientation|keyboard">
+                android:name="com.dropbox.client2.android.AuthActivity"
+                android:launchMode="singleTask" >
             <intent-filter>
                 <data android:scheme="db-4czk970ankekthg" />
                 <action android:name="android.intent.action.VIEW" />
-                <category android:name="android.intent.category.BROWSABLE"/>
+                <category android:name="android.intent.category.BROWSABLE" />
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
