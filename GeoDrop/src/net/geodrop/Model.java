@@ -109,7 +109,7 @@ public class Model implements Entity {
       String name = path.getName();
       name = name.substring(0, name.length() - "_model.txt".length());
           
-      DbxFile file = dbxFs.open(new DbxPath(path.getParent(), name + "_texture.png"));
+      DbxFile file = dbxFs.open(new DbxPath(path.getParent(), name + "_texture.txt"));
       GLES20.glGenTextures(1, tmp, 0);
       texture = tmp[0];
 

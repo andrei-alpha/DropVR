@@ -66,12 +66,13 @@ public class Folder implements Entity {
     syncFolderContent();
 
     // Add the listener
-    //dbxFs.addPathListener(new DbxFileSystem.PathListener() {
-    //  @Override
-    //  public void onPathChange(DbxFileSystem dbxFileSystem, DbxPath dbxPath, Mode mode) {
-    //    syncFolderContent();
-    //  }
-    //}, DbxPath.ROOT, DbxFileSystem.PathListener.Mode.PATH_ONLY);
+    dbxFs.addPathListener(new DbxFileSystem.PathListener() {
+      @Override
+      public void onPathChange(DbxFileSystem dbxFileSystem, DbxPath dbxPath, Mode mode) {
+        Log.i("FS", " GOT HERE");
+        syncFolderContent();
+      }
+    }, DbxPath.ROOT, DbxFileSystem.PathListener.Mode.PATH_ONLY);
 
     if (parent != null) {
       children.add(parent);
@@ -88,7 +89,7 @@ public class Folder implements Entity {
           children.add(new Folder(dbxFs, this, info.path));
         } else if (info.path.getName().endsWith("_model.txt")) {
             children.add(new Model(dbxFs, info.path));
-        } else {
+        } else if (!info.path.getName().endsWith(".txt")) {
           DbxFile file = dbxFs.open(info.path);
           children.add(new Image(BitmapFactory.decodeStream(file.getReadStream())));
           file.close();
