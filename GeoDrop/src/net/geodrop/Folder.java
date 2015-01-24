@@ -57,6 +57,10 @@ public class Folder implements Entity {
   private final DbxPath dbxPath;
 
 
+  private boolean sync = true;
+
+  private long count = 0;
+
   public Folder(DbxFileSystem dbxFs, Folder parent, DbxPath dbxPath) {
 
     this.dbxFs = dbxFs;
@@ -70,9 +74,9 @@ public class Folder implements Entity {
       @Override
       public void onPathChange(DbxFileSystem dbxFileSystem, DbxPath dbxPath, Mode mode) {
         Log.i("FS", " GOT HERE");
-        syncFolderContent();
+        sync = true;
       }
-    }, DbxPath.ROOT, DbxFileSystem.PathListener.Mode.PATH_ONLY);
+    }, DbxPath.ROOT, DbxFileSystem.PathListener.Mode.PATH_OR_CHILD);
 
     if (parent != null) {
       children.add(parent);
@@ -80,15 +84,22 @@ public class Folder implements Entity {
   }
 
   private void syncFolderContent() {
+      if (!sync) {
+          return;
+      }
+      sync = false;
     try {
       List<DbxFileInfo> infos = dbxFs.listFolder(dbxPath);
 
+      children.clear();
       for (DbxFileInfo info : infos) {
         Log.i("FS", info.path.toString());
         if (info.isFolder) {
-          children.add(new Folder(dbxFs, this, info.path));
+          if (++count == 1) {
+              children.add(new Folder(dbxFs, this, info.path));
+          }
         } else if (info.path.getName().endsWith("_model.txt")) {
-            children.add(new Model(dbxFs, info.path));
+          children.add(new Model(dbxFs, info.path));
         } else if (!info.path.getName().endsWith(".txt")) {
           DbxFile file = dbxFs.open(info.path);
           children.add(new Image(BitmapFactory.decodeStream(file.getReadStream())));
@@ -102,6 +113,7 @@ public class Folder implements Entity {
 
   @Override
   public void render(Shader shader, Shader unused, Eye eye, float[] model) {
+      syncFolderContent();
     int i = 0;
     for (Entity child : children) {
       float ang = (float)(i * Math.PI * 2.0 / children.size());
