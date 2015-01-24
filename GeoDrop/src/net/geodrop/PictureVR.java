@@ -164,16 +164,11 @@ public class PictureVR extends CardboardActivity implements CardboardView.Stereo
    */
   @Override
   public void onNewFrame(HeadTransform headTransform) {
-    //try {
-      if (root == null) {
-        Log.i("FS", "Creating home folder.");
-        root = new Folder(dbxFs, null, DbxPath.ROOT);
-        Log.i("FS", "Created home folder.");
-      }
-    //} catch (IOException e) {
-    //  e.printStackTrace();
-    //  finish();
-    //}
+    if (root == null) {
+      Log.i("FS", "Creating home folder.");
+      root = new Folder(dbxFs, null, DbxPath.ROOT);
+      Log.i("FS", "Created home folder.");
+    }
     
     if (folderImage == null) {
       folderImage = new Image(BitmapFactory.decodeResource(getResources(), R.drawable.folder));
