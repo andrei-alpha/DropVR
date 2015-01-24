@@ -25,16 +25,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="7baed785-d87d-4a29-8820-f6ea7fe54449" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/GeoDrop/res/drawable/cat.jpg" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/GeoDrop/src/net/geodrop/Entity.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/GeoDrop/src/net/geodrop/Model.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/GeoDrop/res/raw/model3d_frag.glsl" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/GeoDrop/res/raw/model3d_vert.glsl" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/GeoDrop/src/net/geodrop/GeoDropActivity.java" afterPath="$PROJECT_DIR$/GeoDrop/src/net/geodrop/PictureVR.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/GeoDrop/libs/dropbox-sync-sdk-android.jar" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/GeoDrop/libs/dropbox-android-sdk-1.6.3.jar" afterPath="" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/GeoDrop/AndroidManifest.xml" afterPath="$PROJECT_DIR$/GeoDrop/AndroidManifest.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/GeoDrop/src/net/geodrop/Quad.java" afterPath="$PROJECT_DIR$/GeoDrop/src/net/geodrop/Quad.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/GeoDrop/src/net/geodrop/Shader.java" afterPath="$PROJECT_DIR$/GeoDrop/src/net/geodrop/Shader.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/GeoDrop/res/raw/image2d_frag.glsl" afterPath="$PROJECT_DIR$/GeoDrop/res/raw/image2d_frag.glsl" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/GeoDrop/GeoDrop.iml" afterPath="$PROJECT_DIR$/GeoDrop/GeoDrop.iml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/GeoDrop/src/net/geodrop/PictureVR.java" afterPath="$PROJECT_DIR$/GeoDrop/src/net/geodrop/PictureVR.java" />
     </list>
     <ignored path="DropboxHack.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -57,11 +52,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="PictureVR.java" pinned="false" current="false" current-in-tab="false">
+      <file leaf-file-name="PictureVR.java" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/GeoDrop/src/net/geodrop/PictureVR.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="360" max-vertical-offset="4140">
-              <caret line="150" column="36" selection-start-line="150" selection-start-column="36" selection-end-line="150" selection-end-column="36" />
+            <state vertical-scroll-proportion="0.43370786" vertical-offset="1547" max-vertical-offset="4230">
+              <caret line="116" column="8" selection-start-line="116" selection-start-column="8" selection-end-line="116" selection-end-column="8" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -69,10 +64,10 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Quad.java" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="Quad.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/GeoDrop/src/net/geodrop/Quad.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.15730338" vertical-offset="155" max-vertical-offset="1185">
+            <state vertical-scroll-proportion="0.0" vertical-offset="155" max-vertical-offset="1185">
               <caret line="22" column="31" selection-start-line="22" selection-start-column="31" selection-end-line="22" selection-end-column="31" />
               <folding />
             </state>
@@ -145,9 +140,9 @@
         <option value="$PROJECT_DIR$/GeoDrop/src/net/geodrop/GeoDropActivity.java" />
         <option value="$PROJECT_DIR$/GeoDrop/AndroidManifest.xml" />
         <option value="$PROJECT_DIR$/GeoDrop/src/net/geodrop/Shader.java" />
-        <option value="$PROJECT_DIR$/GeoDrop/src/net/geodrop/PictureVR.java" />
         <option value="$PROJECT_DIR$/GeoDrop/res/raw/image2d_frag.glsl" />
         <option value="$PROJECT_DIR$/GeoDrop/src/net/geodrop/Quad.java" />
+        <option value="$PROJECT_DIR$/GeoDrop/src/net/geodrop/PictureVR.java" />
       </list>
     </option>
   </component>
@@ -301,6 +296,84 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="DropboxHack" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="DropboxHack" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="GeoDrop" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="libs" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="dropbox-sync-sdk-android.jar" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiFileNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="DropboxHack" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="DropboxHack" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="GeoDrop" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="libs" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="dropbox-sync-sdk-android.jar" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiFileNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="dropbox" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="android" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="DropboxHack" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="DropboxHack" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="GeoDrop" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="libs" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="dropbox-sync-sdk-android.jar" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiFileNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="dropbox" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
         </subPane>
       </pane>
     </panes>
@@ -314,9 +387,9 @@
     <property name="MemberChooser.copyJavadoc" value="false" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="recentsLimit" value="5" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/GeoDrop/libs/libprotobuf-java-2.3-nano.jar!/" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/GeoDrop/libs/dropbox-sync-sdk-android.jar!/" />
     <property name="project.structure.last.edited" value="Libraries" />
-    <property name="project.structure.proportion" value="0.0" />
+    <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.2" />
     <property name="OverrideImplement.combined" value="true" />
     <property name="OverrideImplement.overriding.sorted" value="false" />
@@ -650,7 +723,7 @@
       <workItem from="1422056177909" duration="3713000" />
       <workItem from="1422059905150" duration="3028000" />
       <workItem from="1422063179409" duration="3015000" />
-      <workItem from="1422066364411" duration="2544000" />
+      <workItem from="1422066364411" duration="2776000" />
     </task>
     <task id="LOCAL-00001" summary="Blank Android project.">
       <created>1422038801739</created>
@@ -664,7 +737,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="20038000" />
+    <option name="totallyTimeSpent" value="20270000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="-17" width="1366" height="764" extended-state="0" />
@@ -684,8 +757,8 @@
       <window_info id="IDEtalk" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Build Variants" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32859176" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
-      <window_info id="Android" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.32859176" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.32859176" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
+      <window_info id="Android" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32859176" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
@@ -1151,21 +1224,21 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/GeoDrop/src/net/geodrop/PictureVR.java">
+    <entry file="file://$PROJECT_DIR$/GeoDrop/src/net/geodrop/Quad.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="2046" max-vertical-offset="4140">
-          <caret line="150" column="36" selection-start-line="150" selection-start-column="36" selection-end-line="150" selection-end-column="36" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
+        <state vertical-scroll-proportion="0.0" vertical-offset="155" max-vertical-offset="1185">
+          <caret line="22" column="31" selection-start-line="22" selection-start-column="31" selection-end-line="22" selection-end-column="31" />
+          <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/GeoDrop/src/net/geodrop/Quad.java">
+    <entry file="file://$PROJECT_DIR$/GeoDrop/src/net/geodrop/PictureVR.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.15730338" vertical-offset="155" max-vertical-offset="1185">
-          <caret line="22" column="31" selection-start-line="22" selection-start-column="31" selection-end-line="22" selection-end-column="31" />
-          <folding />
+        <state vertical-scroll-proportion="0.43370786" vertical-offset="1547" max-vertical-offset="4230">
+          <caret line="116" column="8" selection-start-line="116" selection-start-column="8" selection-end-line="116" selection-end-column="8" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
