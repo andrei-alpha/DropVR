@@ -1,0 +1,113 @@
+package net.geodrop;
+
+import android.content.*;
+import android.graphics.BitmapFactory;
+import android.opengl.Matrix;
+import android.util.Log;
+import com.dropbox.sync.android.*;
+
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+
+/**
+ * Stuff
+ */
+public class Folder implements Entity {
+
+  /**
+   * Projection matrix. 
+   */
+  private static final float[] mProj = new float[16];
+
+  /**
+   * View matrix. 
+   */
+  private static final float[] mView = new float[16];
+
+  /**
+   * Model matrix. 
+   */
+  private static final float[] mModel = new float[16];
+
+  /**
+   * List of chilren.
+   */
+  private List<Entity> children = new ArrayList<>();
+
+  /**
+   * Index of the selected child.
+   */
+  int selected;
+
+  /**
+   * True if a child has to be zoomed.
+   */
+  boolean zoomed;
+
+  public Folder(DbxFileSystem dbxFs, Folder parent, DbxPath dbxPath)
+      throws DbxException, IOException 
+  {
+    List<DbxFileInfo> infos = dbxFs.listFolder(dbxPath);
+
+    for (DbxFileInfo info : infos) {
+      Log.i("FS", info.path.toString());
+      if (info.isFolder) {
+        children.add(new Folder(dbxFs, this, info.path));
+      } else {
+        DbxFile file = dbxFs.open(info.path);
+        children.add(new Image(BitmapFactory.decodeStream(file.getReadStream())));
+        file.close();
+      }
+    }
+    
+    if (parent != null) {
+      children.add(parent);
+    }
+  }
+  
+  @Override
+  public void render(Shader shader) {
+    int i = 0;
+    for (Entity child : children) {
+      float ang = (float)(i * Math.PI * 2.0 / children.size());
+      float dist = selected == i ? (zoomed ? 3.0f : 5.0f) : 7.0f;
+
+      Matrix.setIdentityM(mModel, 0);
+      Matrix.translateM(
+          mModel, 0,
+          (float) Math.sin(ang) * dist,
+          0.0f,
+          (float) Math.cos(ang) * dist);
+      Matrix.rotateM(
+          mModel, 0, ang / (float) Math.PI * 180.0f, 0.0f, 1.0f, 0.0f);
+
+      if (i == selected) {
+        Matrix.scaleM(mModel, 0, 1.1f, 1.1f, 1.1f);
+      }
+      
+      shader.uniform("u_model", mModel);
+      if (child instanceof Folder) {
+        PictureVR.folderImage.render(shader);
+      } else {
+        child.render(shader);
+      }
+      ++i;
+    }
+  }
+
+  public Folder select() {
+    if (children.get(selected) instanceof Image) {
+      zoomed = !zoomed;
+      return null;
+    } else {
+      zoomed = false;
+      return (Folder)children.get(selected);
+    }
+  }
+
+  public void point(float x, float z) {
+    float ang = (float)Math.atan2(x, -z) + (float)Math.PI;
+    selected = (int)(ang * children.size() / (2 * Math.PI)); 
+  }
+}

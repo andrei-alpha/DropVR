@@ -5,5 +5,6 @@ package net.geodrop;
  */
 public interface Entity {
   void render(Shader shader);
-  float getRot();
+  Folder select();
+  void point(float x, float z);
 }

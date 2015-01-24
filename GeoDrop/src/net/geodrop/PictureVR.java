@@ -11,7 +11,6 @@ import android.util.Log;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 
-import android.view.MotionEvent;
 import com.dropbox.sync.android.*;
 
 import com.google.vrtoolkit.cardboard.*;
@@ -22,17 +21,21 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class PictureVR
-    extends CardboardActivity
-    implements CardboardView.StereoRenderer 
+public class PictureVR extends CardboardActivity implements CardboardView.StereoRenderer 
 {
-
   /**
    *  App key & secret
    */
   final static private String APP_KEY = "4czk970ankekthg";
+
+  /**
+   * App secret.
+   */
   final static private String APP_SECRET = "68ekm600tjoruau";
 
+  /**
+   * Custom request ID. 
+   */
   static final int REQUEST_LINK_TO_DBX = 0xFF;
 
   /**
@@ -44,11 +47,6 @@ public class PictureVR
    * Dropbox file system
    */
   DbxFileSystem dbxFs;
-
-  /**
-   * Bitmaps corresponding to the images
-   */
-  List<Bitmap> bitMaps;
 
   /**
    * 3D cardboardView.
@@ -64,52 +62,12 @@ public class PictureVR
    * 2D image shader. 
    */
   private Shader image2DShader;
-
-  /**
-   * Array of images to display. 
-   */
-  private List<Entity> entities;
-
-  /**
-   * Projection matrix. 
-   */
-  private final float[] mProj = new float[16];
-
-  /**
-   * View matrix. 
-   */
-  private final float[] mView = new float[16];
-
-  /**
-   * Model matrix. 
-   */
-  private final float[] mModel = new float[] {
-    1, 0, 0, 0,
-    0, 1, 0, 0,
-    0, 0, 1, 0,
-    0, 0, 0, 1
-  };
-
-  /**
-   * Index of the selected image. 
-   */
-  private int selected = 0;
-
-  /**
-   * True if the current item was zoomed. 
-   */
-  private boolean zoomed = false;
-
-  /**
-   * Java Shit 
-   */
-  private final BitmapFactory.Options options;
   
-  public PictureVR() {
-    options = new BitmapFactory.Options();
-    options.inScaled = false;
-  }
-  
+  /**
+   * Root folder. 
+   */
+  private Folder root;
+
   /**
    * Called when the activity is first created.
    */
@@ -131,42 +89,28 @@ public class PictureVR
     if (!mDbxAcctMgr.hasLinkedAccount()) {
       mDbxAcctMgr.startLink(this, REQUEST_LINK_TO_DBX);
     } else {
-      syncFiles();
+      initFileSystem();
     }
   }
 
   @Override
   public void onActivityResult(int requestCode, int resultCode, Intent data) {
-    Log.i("Files", "OnActivityResult: " + requestCode + " " + resultCode);
     if (requestCode == REQUEST_LINK_TO_DBX) {
       if (resultCode == Activity.RESULT_OK) {
-        syncFiles();
-        Log.i("Sync", "Synced files.");
+        initFileSystem();
       }
     } else {
       super.onActivityResult(requestCode, resultCode, data);
     }
   }
-
-  private void syncFiles() {
+  
+  private void initFileSystem() {
     try {
-      bitMaps = new ArrayList<>();
       dbxFs = DbxFileSystem.forAccount(mDbxAcctMgr.getLinkedAccount());
-
-      // Get the root directory info
-      List<DbxFileInfo> infos = dbxFs.listFolder(DbxPath.ROOT);
-
-      for (DbxFileInfo info : infos) {
-        if (!info.isFolder) {
-          DbxFile file = dbxFs.open(info.path);
-          bitMaps.add(BitmapFactory.decodeStream(file.getReadStream()));
-          file.close();
-        }
-      }
-      Log.i("Files", "Loaded.");
     } catch (IOException e) {
-      throw new RuntimeException("Failed to sync files");
-    }
+      e.printStackTrace();
+      finish();
+    }    
   }
 
   /**
@@ -176,7 +120,7 @@ public class PictureVR
    */
   @Override
   public void onSurfaceCreated(EGLConfig eglConfig) {
-    GLES20.glClearColor(0.0f, 0.49f, 0.89f, 1.0f);
+    GLES20.glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
     GLES20.glEnable(GLES20.GL_DEPTH_TEST);
     GLES20.glDepthFunc(GLES20.GL_LEQUAL);
     GLES20.glEnable(GLES20.GL_CULL_FACE);
@@ -195,9 +139,22 @@ public class PictureVR
     }
   }
   
-  private int lastCount = 0;
-  private int numRows = 1;
-
+  /**
+   * Called when the magnet is pulled.
+   */
+  @Override
+  public void onCardboardTrigger() {
+    vibrator.vibrate(70);
+    if (root != null) {
+      Folder child = root.select();
+      if (child != null) {
+        root = child;
+      }
+    }
+  }
+  
+  static Image folderImage;
+  
   /**
    * Called when a new frame starts. Should update the application state.
    *
@@ -205,37 +162,25 @@ public class PictureVR
    */
   @Override
   public void onNewFrame(HeadTransform headTransform) {
-    if (bitMaps != null && entities == null) {
-      entities = new ArrayList<>();
-      for (Bitmap bitmap : bitMaps) {
-        entities.add(new Quad(bitmap));
+    try {
+      if (root == null) {
+        Log.i("FS", "Creating home folder.");
+        root = new Folder(dbxFs, null, DbxPath.ROOT);
+        Log.i("FS", "Created home folder.");
       }
-      if (entities.size() > 16) {
-        numRows = 2;
-      } else if (entities.size() > 32) {
-        numRows = 3;
-      } else {
-        numRows = 1;
-      }
+    } catch (IOException e) {
+      e.printStackTrace();
+      finish();
+    }
+    
+    if (folderImage == null) {
+      folderImage = new Image(BitmapFactory.decodeResource(getResources(), R.drawable.folder));
     }
     
     final float[] forward = new float[3];
     headTransform.getForwardVector(forward, 0);
-    int third = entities.size() / numRows;
-    
-    float ang = (float)Math.atan2(forward[0], -forward[2]) + (float)Math.PI;
-    int newSelected = (int)(ang * third / (2 * Math.PI)) + (numRows == 3 ? third : 0);
-    
-    if (numRows == 3) {
-      if (forward[1] > 0.2) {
-        newSelected -= third;
-      } else if (forward[1] < -0.2) {
-        newSelected += third;
-      }
-    }
-    
-    if (!zoomed) {
-      selected = newSelected;
+    if (root != null) {
+      root.point(forward[0], forward[2]);
     }
   }
 
@@ -252,32 +197,8 @@ public class PictureVR
     image2DShader.uniform("u_view", eye.getEyeView());
     image2DShader.uniform("u_proj", eye.getPerspective(0.1f, 100.0f));
     
-    if (entities == null) {
-      return;
-    }
-    
-    int i = 0;
-    for (Entity quad : entities) {
-      float ang = i * (float)Math.PI * 2.0f * numRows / entities.size();
-      float dist = i == selected ? (zoomed ? 3.0f : 5.0f) : 7.0f;
-      
-      Matrix.setIdentityM(mModel, 0);
-      Matrix.translateM(
-          mModel, 0,
-          (float) Math.sin(ang) * dist,
-          (i == selected && zoomed) ? 0.0f : ((float) (i * numRows / entities.size()) * numRows - numRows),
-          (float) Math.cos(ang) * dist);
-      Matrix.rotateM(
-          mModel, 0, quad.getRot() + ang / (float)Math.PI * 180.0f, 0.0f, 1.0f, 0.0f);
-      
-      if (i == selected) {
-        Matrix.scaleM(mModel, 0, 1.1f, 1.1f, 1.1f);
-      }
-      
-      image2DShader.uniform("u_model", mModel);
-      quad.render(image2DShader);
-      
-      ++i;
+    if (root != null) {
+      root.render(image2DShader);
     }
   }
 
@@ -289,7 +210,6 @@ public class PictureVR
    */
   @Override
   public void onFinishFrame(Viewport viewport) {
-
   }
 
   /**
@@ -301,12 +221,6 @@ public class PictureVR
   @Override
   public void onSurfaceChanged(int width, int height) {
     Log.i("GeoDrop", "OnSurfaceChanged :" + width + "x" + height);
-  }
-  
-  @Override
-  public void onCardboardTrigger() {
-    vibrator.vibrate(70);
-    zoomed = !zoomed;
   }
   
   /**

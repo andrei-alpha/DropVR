@@ -12,7 +12,7 @@ import java.nio.FloatBuffer;
 /**
  * GLES quad.
  */
-public class Quad implements Entity {
+public class Image implements Entity {
   private static final float[] QUAD = new float[] {
     -1.0f, -1.0f, 0.0f, 1.0f, 1.0f,
     -1.0f,  1.0f, 0.0f, 1.0f, 0.0f,
@@ -33,12 +33,12 @@ public class Quad implements Entity {
   private int texture;
   
   private int buffer;
-  
-  public Quad(Bitmap bitmap) {
+
+  public Image(Bitmap bitmap) {
     final int[] tmp = new int[1];
     GLES20.glGenTextures(1, tmp, 0);
     texture = tmp[0];
-    
+
     GLES20.glBindTexture(GLES20.GL_TEXTURE_2D, texture);
     GLES20.glTexParameteri(GLES20.GL_TEXTURE_2D, GLES20.GL_TEXTURE_MIN_FILTER, GLES20.GL_NEAREST);
     GLES20.glTexParameteri(GLES20.GL_TEXTURE_2D, GLES20.GL_TEXTURE_MAG_FILTER, GLES20.GL_NEAREST);
@@ -53,7 +53,8 @@ public class Quad implements Entity {
     GLES20.glBufferData(
         GLES20.GL_ARRAY_BUFFER, QUAD_BUFFER.capacity() * 4, QUAD_BUFFER, GLES20.GL_STATIC_DRAW);
   }
-  
+
+  @Override
   public void render(Shader shader) {
     int vertex = shader.attrib("in_vertex");
     int uv = shader.attrib("in_uv");
@@ -74,7 +75,10 @@ public class Quad implements Entity {
     GLES20.glDisableVertexAttribArray(vertex);
   }
   
-  public float getRot() {
-    return 0.0f;
+  public Folder select() {
+    return null;
+  }
+
+  public void point(float x, float z) {
   }
 }
