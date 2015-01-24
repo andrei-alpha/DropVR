@@ -1,12 +1,20 @@
 package net.geodrop;
 
+import android.app.ActionBar;
 import android.opengl.GLES20;
+import android.opengl.Matrix;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Display;
+import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import com.google.vrtoolkit.cardboard.*;
 
 import javax.microedition.khronos.egl.EGLConfig;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class GeoDropActivity 
     extends CardboardActivity 
@@ -15,12 +23,37 @@ public class GeoDropActivity
   /**
    * 3D cardboardView.
    */
-  CardboardView cardboardView;
+  private CardboardView cardboardView;
 
   /**
    * 2D image shader. 
    */
-  Shader image2DShader;
+  private Shader image2DShader;
+
+  /**
+   * Array of images to display. 
+   */
+  private List<Quad> quads;
+
+  /**
+   * Projection matrix. 
+   */
+  private final float[] mProj = new float[16];
+
+  /**
+   * View matrix. 
+   */
+  private final float[] mView = new float[16];
+
+  /**
+   * Model matrix. 
+   */
+  private final float[] mModel = new float[] {
+    1, 0, 0, 0,
+    0, 1, 0, 0,
+    0, 0, 1, 0,
+    0, 0, 0, 1
+  };
   
   /**
    * Called when the activity is first created.
@@ -28,12 +61,20 @@ public class GeoDropActivity
   @Override
   public void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
-    
+
     // Create the cardboard cardboardView.
     cardboardView = new CardboardView(this);
     setContentView(cardboardView);
     cardboardView.setRenderer(this);
     setCardboardView(cardboardView);
+  }
+
+  /**
+   * Called when the activity is resumed. 
+   */
+  @Override
+  public void onResume() {
+    super.onResume();
   }
 
   /**
@@ -48,12 +89,18 @@ public class GeoDropActivity
     // Load shaders.
     try {
       image2DShader = new Shader("image2DShader");
-      image2DShader.load(Shader.Type.VERT, getResources().openRawResource(R.raw.image2d_frag));
-      image2DShader.load(Shader.Type.FRAG, getResources().openRawResource(R.raw.image2d_vert));
+      image2DShader.load(Shader.Type.FRAG, getResources().openRawResource(R.raw.image2d_frag));
+      image2DShader.load(Shader.Type.VERT, getResources().openRawResource(R.raw.image2d_vert));
       image2DShader.link();
     } catch (IOException e) {
       Log.i("CardBox", "Cannot read 'image2DShader': " + e.toString());
       finish();
+    }
+
+    // Initialise the list of files to view.
+    quads = new ArrayList<>();
+    for (int i = 0; i < 20; ++i) {
+      quads.add(new Quad());
     }
   }
 
@@ -65,8 +112,6 @@ public class GeoDropActivity
    */
   @Override
   public void onNewFrame(HeadTransform headTransform) {
-    GLES20.glClear(GLES20.GL_COLOR_BUFFER_BIT | GLES20.GL_DEPTH_BUFFER_BIT);
-    
   }
 
   /**
@@ -76,7 +121,24 @@ public class GeoDropActivity
    */
   @Override
   public void onDrawEye(Eye eye) {
+    GLES20.glClear(GLES20.GL_COLOR_BUFFER_BIT | GLES20.GL_DEPTH_BUFFER_BIT);
     
+    image2DShader.use();
+    image2DShader.uniform("u_view", eye.getEyeView());
+    image2DShader.uniform("u_proj", eye.getPerspective(0.1f, 100.0f));
+    
+    int i = 0;
+    for (Quad quad : quads) {
+      float ang = i * (float)Math.PI / quads.size();
+      
+      Matrix.setIdentityM(mModel, 0);
+      Matrix.translateM(mModel, 0, (float)Math.sin(ang), 0.0f, (float)Math.cos(ang));
+      
+      image2DShader.uniform("u_model", mModel);
+      quad.render(image2DShader);
+      
+      ++i;
+    }
   }
 
 
