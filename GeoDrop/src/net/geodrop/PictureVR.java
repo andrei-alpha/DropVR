@@ -24,14 +24,14 @@ import java.util.List;
 public class PictureVR extends CardboardActivity implements CardboardView.StereoRenderer 
 {
   /**
-   *  App key & secret
+   *  App key
    */
-  final static private String APP_KEY = "4czk970ankekthg";
+  final static private String APP_KEY = "mwssyal2r1n22uo";
 
   /**
    * App secret.
    */
-  final static private String APP_SECRET = "68ekm600tjoruau";
+  final static private String APP_SECRET = "g1umz9hg1zz1w5k";
 
   /**
    * Custom request ID. 

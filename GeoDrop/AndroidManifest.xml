@@ -34,7 +34,7 @@
                 android:name="com.dropbox.client2.android.AuthActivity"
                 android:launchMode="singleTask" >
             <intent-filter>
-                <data android:scheme="db-4czk970ankekthg" />
+                <data android:scheme="db-mwssyal2r1n22uo" />
                 <action android:name="android.intent.action.VIEW" />
                 <category android:name="android.intent.category.BROWSABLE" />
                 <category android:name="android.intent.category.DEFAULT" />
