@@ -16,7 +16,7 @@
         android:label="@string/app_name" 
         android:icon="@drawable/ic_launcher">
         <activity 
-            android:name="GeoDropActivity"
+            android:name=".PictureVR"
             android:screenOrientation="landscape"
             android:label="@string/app_name"
             android:configChanges="orientation|keyboardHidden|screenSize">
