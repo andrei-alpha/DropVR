@@ -1,6 +1,10 @@
 package net.geodrop;
 
-import android.app.ActionBar;
+import com.dropbox.client2.DropboxAPI;
+import com.dropbox.client2.android.AndroidAuthSession;
+import com.dropbox.client2.session.AppKeyPair;
+import com.dropbox.client2.session.Session.AccessType;
+
 import android.opengl.GLES20;
 import android.opengl.Matrix;
 import android.os.Bundle;
@@ -20,6 +24,19 @@ public class GeoDropActivity
     extends CardboardActivity 
     implements CardboardView.StereoRenderer 
 {
+
+  /**
+   *  App key & secret
+   */
+  final static private String APP_KEY = "pm7uj5ni8got89w";
+  final static private String APP_SECRET = "b4ln0k265szoal4";
+  final static private AccessType ACCESS_TYPE = AccessType.DROPBOX;
+
+  /**
+   * API object
+   */
+  private DropboxAPI<AndroidAuthSession> mDBApi;
+
   /**
    * 3D cardboardView.
    */
@@ -62,6 +79,14 @@ public class GeoDropActivity
   public void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
 
+    // Initialise API stuff
+    AppKeyPair appKeys = new AppKeyPair(APP_KEY, APP_SECRET);
+    AndroidAuthSession session = new AndroidAuthSession(appKeys, ACCESS_TYPE);
+    mDBApi = new DropboxAPI<AndroidAuthSession>(session);
+
+    // Authenticate
+    mDBApi.getSession().startOAuth2Authentication(GeoDropActivity.this);
+
     // Create the cardboard cardboardView.
     cardboardView = new CardboardView(this);
     setContentView(cardboardView);
@@ -69,12 +94,18 @@ public class GeoDropActivity
     setCardboardView(cardboardView);
   }
 
-  /**
-   * Called when the activity is resumed. 
-   */
   @Override
-  public void onResume() {
+  protected void onResume() {
     super.onResume();
+
+    if (mDBApi.getSession().authenticationSuccessful()) {
+      try {
+        mDBApi.getSession().finishAuthentication();
+        String accessToken = mDBApi.getSession().getOAuth2AccessToken();
+      } catch (IllegalStateException e) {
+        Log.i("DbAuthLog", "Error authenticating", e);
+      }
+    }
   }
 
   /**
