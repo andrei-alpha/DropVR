@@ -62,6 +62,10 @@ public class PictureVR extends CardboardActivity implements CardboardView.Stereo
    * 2D image shader. 
    */
   private Shader image2DShader;
+  /**
+   * 2D image shader.
+   */
+  private Shader image3DShader;
   
   /**
    * Root folder. 
@@ -123,9 +127,6 @@ public class PictureVR extends CardboardActivity implements CardboardView.Stereo
     GLES20.glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
     GLES20.glEnable(GLES20.GL_DEPTH_TEST);
     GLES20.glDepthFunc(GLES20.GL_LEQUAL);
-    GLES20.glEnable(GLES20.GL_CULL_FACE);
-    GLES20.glCullFace(GLES20.GL_BACK);
-    GLES20.glFrontFace(GLES20.GL_CCW);
     
     // Load shaders.
     try {
@@ -133,6 +134,11 @@ public class PictureVR extends CardboardActivity implements CardboardView.Stereo
       image2DShader.load(Shader.Type.FRAG, getResources().openRawResource(R.raw.image2d_frag));
       image2DShader.load(Shader.Type.VERT, getResources().openRawResource(R.raw.image2d_vert));
       image2DShader.link();
+      
+      image3DShader = new Shader("image3DShader");
+      image3DShader.load(Shader.Type.FRAG, getResources().openRawResource(R.raw.model3d_frag));
+      image3DShader.load(Shader.Type.VERT, getResources().openRawResource(R.raw.model3d_vert));
+      image3DShader.link();
     } catch (IOException e) {
       Log.i("CardBox", "Cannot read 'image2DShader': " + e.toString());
       finish();
@@ -192,13 +198,9 @@ public class PictureVR extends CardboardActivity implements CardboardView.Stereo
   @Override
   public void onDrawEye(Eye eye) {
     GLES20.glClear(GLES20.GL_COLOR_BUFFER_BIT | GLES20.GL_DEPTH_BUFFER_BIT);
-    
-    image2DShader.use();
-    image2DShader.uniform("u_view", eye.getEyeView());
-    image2DShader.uniform("u_proj", eye.getPerspective(0.1f, 100.0f));
-    
+
     if (root != null) {
-      root.render(image2DShader);
+      root.render(image2DShader, image3DShader, eye, null);
     }
   }
 
